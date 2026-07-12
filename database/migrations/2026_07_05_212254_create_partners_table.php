@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('partners', function (Blueprint $table) {
+            $table->id();
+            $table->string('organization_name');
+            $table->string('logo')->nullable();
+            $table->string('website')->nullable();
+            $table->enum('category', ['Partner', 'Sponsor', 'Donor', 'Government', 'NGO', 'Corporate'])->default('Partner');
+            $table->text('description')->nullable();
+            $table->boolean('show_on_homepage')->default(false);
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('partners');
+    }
+};
