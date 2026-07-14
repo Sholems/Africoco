@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasPublicImageUrls;
 use Illuminate\Database\Eloquent\Model;
 
 class AnnualReport extends Model
 {
+    use HasPublicImageUrls;
+
     protected $fillable = [
         'title',
         'type',
@@ -34,5 +37,15 @@ class AnnualReport extends Model
     public function scopeOfType($query, string $type)
     {
         return $query->where('type', $type);
+    }
+
+    public function getCoverImageUrlAttribute(): ?string
+    {
+        return $this->publicImageUrl($this->cover_image);
+    }
+
+    public function getFileUrlAttribute(): ?string
+    {
+        return $this->publicImageUrl($this->file_path);
     }
 }

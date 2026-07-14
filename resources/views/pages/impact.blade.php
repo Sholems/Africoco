@@ -124,9 +124,9 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($projects as $project)
             <div class="group bg-cream rounded-card overflow-hidden shadow-card hover:shadow-lg transition-all border border-gray-100">
-                @if($project->featured_image)
+                @if($project->featured_image_url)
                 <div class="overflow-hidden">
-                    <img src="{{ $project->featured_image }}" alt="{{ $project->title }}" class="w-full h-44 object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="{{ $project->featured_image_url }}" alt="{{ $project->title }}" class="w-full h-44 object-cover group-hover:scale-110 transition-transform duration-500">
                 </div>
                 @else
                 <div class="w-full h-32 bg-gradient-to-br from-primary/5 to-forest/5 flex items-center justify-center">
@@ -157,9 +157,9 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 items-center">
             @foreach($partners as $partner)
             <div class="bg-white rounded-card p-6 shadow-sm hover:shadow-md transition-all text-center border border-gray-100">
-                @if($partner->logo)
+                @if($partner->logo_url)
                 <div class="h-16 flex items-center justify-center">
-                    <img src="{{ $partner->logo }}" alt="{{ $partner->organization_name }}" class="max-h-full grayscale hover:grayscale-0 transition-all">
+                    <img src="{{ $partner->logo_url }}" alt="{{ $partner->organization_name }}" class="max-h-full grayscale hover:grayscale-0 transition-all">
                 </div>
                 @else
                 <div class="h-16 flex items-center justify-center">
@@ -185,9 +185,9 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @foreach($posts as $post)
             <div class="group bg-cream rounded-card overflow-hidden shadow-card hover:shadow-lg transition-all border border-gray-100">
-                @if($post->featured_image)
+                @if($post->featured_image_url)
                 <div class="overflow-hidden">
-                    <img src="{{ $post->featured_image }}" alt="{{ $post->title }}" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="{{ $post->featured_image_url }}" alt="{{ $post->title }}" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
                 </div>
                 @endif
                 <div class="p-6">

@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasPublicImageUrls;
 use Illuminate\Database\Eloquent\Model;
 
 class PageSection extends Model
 {
+    use HasPublicImageUrls;
+
     protected $fillable = [
         'page',
         'section_key',
@@ -39,5 +42,10 @@ class PageSection extends Model
     public function scopeOrdered($query)
     {
         return $query->orderBy('order');
+    }
+
+    public function getImageUrlAttribute(): ?string
+    {
+        return $this->publicImageUrl($this->image);
     }
 }

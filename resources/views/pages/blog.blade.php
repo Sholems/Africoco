@@ -6,11 +6,14 @@
 @section('content')
 <!-- Hero -->
 <section class="relative py-32 overflow-hidden">
+    @php
+        $hero = $sections->get('hero');
+    @endphp
     <div class="absolute inset-0 bg-gradient-to-br from-forest/90 via-forest/80 to-primary/70 z-10"></div>
     <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('images/homepage-hero-africoco-event.jpg') }}')"></div>
     <div class="relative z-20 max-w-container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="font-heading font-bold text-4xl md:text-5xl text-white mb-6">News & Blog</h1>
-        <p class="text-lg text-cream/90 max-w-2xl mx-auto">Insights, stories, and updates from the frontlines of Africa's coconut revolution.</p>
+        <h1 class="font-heading font-bold text-4xl md:text-5xl text-white mb-6">{{ $hero?->title ?? 'News & Blog' }}</h1>
+        <p class="text-lg text-cream/90 max-w-2xl mx-auto">{{ $hero?->body ?? "Insights, stories, and updates from the frontlines of Africa's coconut revolution." }}</p>
     </div>
 </section>
 
@@ -22,7 +25,7 @@
             @foreach($posts as $post)
             <article class="bg-white rounded-card overflow-hidden shadow-card hover:shadow-lg transition-all group">
                 <div class="overflow-hidden">
-                    <img src="{{ $post->featured_image ?? 'https://images.unsplash.com/photo-1504711434969-e33886168d8c?w=400' }}" alt="{{ $post->title }}" class="w-full h-52 object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="{{ $post->featured_image_url ?? asset('images/homepage-hero-africoco-event.jpg') }}" alt="{{ $post->title }}" class="w-full h-52 object-cover group-hover:scale-110 transition-transform duration-500">
                 </div>
                 <div class="p-6">
                     @if($post->category)

@@ -16,6 +16,15 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
+    private function sectionsFor(string $page)
+    {
+        return PageSection::active()
+            ->page($page)
+            ->ordered()
+            ->get()
+            ->keyBy('section_key');
+    }
+
     public function home()
     {
         $programs = Program::active()->take(6)->get();
@@ -38,11 +47,7 @@ class PageController extends Controller
         ];
 
         // Fetch editable homepage sections
-        $sections = PageSection::active()
-            ->page('home')
-            ->ordered()
-            ->get()
-            ->keyBy('section_key');
+        $sections = $this->sectionsFor('home');
 
         return view('pages.home', compact(
             'programs', 'events', 'gallery', 'partners', 'posts', 'team',
@@ -54,22 +59,24 @@ class PageController extends Controller
     {
         $team = TeamMember::active()->ordered()->get();
         $pillars = Pillar::active()->ordered()->withCount('programs')->get();
-        $sections = PageSection::active()->page('about')->ordered()->get()->keyBy('section_key');
+        $sections = $this->sectionsFor('about');
         return view('pages.about', compact('team', 'pillars', 'sections'));
     }
 
     public function programs()
     {
+        $sections = $this->sectionsFor('programs');
         $pillars = Pillar::active()->ordered()->with(['programs' => function ($q) {
             $q->active()->ordered();
         }])->get();
-        return view('pages.programs', compact('pillars'));
+        return view('pages.programs', compact('pillars', 'sections'));
     }
 
     public function events()
     {
+        $sections = $this->sectionsFor('events');
         $events = Event::orderBy('start_date', 'desc')->get();
-        return view('pages.events', compact('events'));
+        return view('pages.events', compact('events', 'sections'));
     }
 
     public function eventShow(Event $event)
@@ -106,15 +113,17 @@ class PageController extends Controller
 
     public function gallery()
     {
+        $sections = $this->sectionsFor('gallery');
         $gallery = Gallery::active()->get();
         $categories = Gallery::active()->select('category')->distinct()->pluck('category');
-        return view('pages.gallery', compact('gallery', 'categories'));
+        return view('pages.gallery', compact('gallery', 'categories', 'sections'));
     }
 
     public function blog()
     {
+        $sections = $this->sectionsFor('blog');
         $posts = BlogPost::published()->recent()->paginate(9);
-        return view('pages.blog', compact('posts'));
+        return view('pages.blog', compact('posts', 'sections'));
     }
 
     public function blogShow(BlogPost $blogPost)
@@ -131,23 +140,26 @@ class PageController extends Controller
 
     public function partners()
     {
+        $sections = $this->sectionsFor('partners');
         $partners = Partner::active()->get();
-        return view('pages.partners', compact('partners'));
+        return view('pages.partners', compact('partners', 'sections'));
     }
 
     public function volunteer()
     {
-        return view('pages.volunteer');
+        $sections = $this->sectionsFor('volunteer');
+        return view('pages.volunteer', compact('sections'));
     }
 
     public function contact()
     {
-        $sections = PageSection::active()->page('contact')->ordered()->get()->keyBy('section_key');
+        $sections = $this->sectionsFor('contact');
         return view('pages.contact', compact('sections'));
     }
 
     public function strategicPillars()
     {
+        $sections = $this->sectionsFor('strategic-pillars');
         $pillars = Pillar::active()->ordered()->with(['programs' => function ($q) {
             $q->active()->ordered();
         }])->withCount('programs')->get();
@@ -157,11 +169,12 @@ class PageController extends Controller
             ['label' => 'Active Initiatives', 'value' => $pillars->sum(fn ($p) => $p->programs->count()), 'icon' => 'academic-cap'],
             ['label' => 'Impact Pillars', 'value' => $pillars->count(), 'icon' => 'globe'],
         ];
-        return view('pages.strategic-pillars', compact('pillars', 'stats'));
+        return view('pages.strategic-pillars', compact('pillars', 'stats', 'sections'));
     }
 
     public function impact()
     {
+        $sections = $this->sectionsFor('impact');
         $projects = Project::active()->take(6)->get();
         $partners = Partner::active()->take(8)->get();
         $posts = BlogPost::published()->recent()->take(3)->get();
@@ -177,11 +190,12 @@ class PageController extends Controller
             ['label' => 'Volunteers Engaged', 'value' => '500+', 'icon' => 'heart', 'color' => '#e11d48'],
             ['label' => 'Events Held', 'value' => '20+', 'icon' => 'calendar', 'color' => '#059669'],
         ];
-        return view('pages.impact', compact('projects', 'partners', 'posts', 'stats'));
+        return view('pages.impact', compact('projects', 'partners', 'posts', 'stats', 'sections'));
     }
 
     public function corporatePartnerships()
     {
+        $sections = $this->sectionsFor('corporate-partnerships');
         $featuredProjects = Project::active()->featured()->take(4)->get();
         $partners = Partner::active()->take(6)->get();
         $sponsorshipLevels = [
@@ -216,18 +230,19 @@ class PageController extends Controller
                 'featured' => false,
             ],
         ];
-        return view('pages.corporate-partnerships', compact('featuredProjects', 'partners', 'sponsorshipLevels'));
+        return view('pages.corporate-partnerships', compact('featuredProjects', 'partners', 'sponsorshipLevels', 'sections'));
     }
 
     public function projects()
     {
+        $sections = $this->sectionsFor('projects');
         $projects = Project::active()->orderBy('start_date', 'desc')->get();
-        return view('pages.projects', compact('projects'));
+        return view('pages.projects', compact('projects', 'sections'));
     }
 
     public function donate(Request $request)
     {
-        $sections = PageSection::active()->page('donate')->ordered()->get()->keyBy('section_key');
+        $sections = $this->sectionsFor('donate');
         return view('pages.donate', [
             'preset_amount' => $request->amount,
             'preset_purpose' => $request->purpose,

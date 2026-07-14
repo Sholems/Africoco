@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasPublicImageUrls;
 use Illuminate\Database\Eloquent\Model;
 
 class Program extends Model
 {
+    use HasPublicImageUrls;
+
     protected $fillable = [
         'pillar_id',
         'title',
@@ -38,5 +41,10 @@ class Program extends Model
     public function scopeOrdered($query)
     {
         return $query->orderBy('title');
+    }
+
+    public function getFeaturedImageUrlAttribute(): ?string
+    {
+        return $this->publicImageUrl($this->featured_image);
     }
 }

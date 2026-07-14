@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasPublicImageUrls;
 use Illuminate\Database\Eloquent\Model;
 
 class Pillar extends Model
 {
+    use HasPublicImageUrls;
+
     protected $fillable = [
         'name',
         'slug',
@@ -43,5 +46,10 @@ class Pillar extends Model
     public function scopeOrdered($query)
     {
         return $query->orderBy('display_order');
+    }
+
+    public function getBannerUrlAttribute(): ?string
+    {
+        return $this->publicImageUrl($this->banner);
     }
 }

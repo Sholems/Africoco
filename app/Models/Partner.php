@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasPublicImageUrls;
 use Illuminate\Database\Eloquent\Model;
 
 class Partner extends Model
 {
+    use HasPublicImageUrls;
+
     protected $fillable = [
         'organization_name',
         'logo',
@@ -32,5 +35,10 @@ class Partner extends Model
     public function scopeHomepage($query)
     {
         return $query->where('show_on_homepage', true);
+    }
+
+    public function getLogoUrlAttribute(): ?string
+    {
+        return $this->publicImageUrl($this->logo);
     }
 }

@@ -65,9 +65,9 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach($pillar->programs as $program)
             <div class="group bg-white rounded-card overflow-hidden shadow-card hover:shadow-lg transition-all border border-gray-100">
-                @if($program->featured_image)
+                @if($program->featured_image_url)
                 <div class="overflow-hidden">
-                    <img src="{{ $program->featured_image }}" alt="{{ $program->title }}" class="w-full h-44 object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="{{ $program->featured_image_url }}" alt="{{ $program->title }}" class="w-full h-44 object-cover group-hover:scale-110 transition-transform duration-500">
                 </div>
                 @else
                 <div class="w-full h-32 flex items-center justify-center" style="background-color: {{ $colors['bg'] }};">

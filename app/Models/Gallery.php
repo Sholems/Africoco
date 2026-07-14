@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasPublicImageUrls;
 use Illuminate\Database\Eloquent\Model;
 
 class Gallery extends Model
 {
+    use HasPublicImageUrls;
+
     protected $table = 'gallery';
 
     protected $fillable = [
@@ -32,5 +35,10 @@ class Gallery extends Model
     public function scopeByCategory($query, $category)
     {
         return $query->where('category', $category);
+    }
+
+    public function getImageUrlAttribute(): ?string
+    {
+        return $this->publicImageUrl($this->image);
     }
 }

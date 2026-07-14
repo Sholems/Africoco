@@ -28,8 +28,8 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3">
                     <!-- Image / Gallery -->
                     <div class="lg:col-span-1 relative overflow-hidden min-h-[250px]">
-                        @if($project->featured_image)
-                        <img src="{{ $project->featured_image }}" alt="{{ $project->title }}" class="w-full h-full absolute inset-0 object-cover group-hover:scale-110 transition-transform duration-500">
+                        @if($project->featured_image_url)
+                        <img src="{{ $project->featured_image_url }}" alt="{{ $project->title }}" class="w-full h-full absolute inset-0 object-cover group-hover:scale-110 transition-transform duration-500">
                         @else
                         <div class="w-full h-full absolute inset-0 bg-gradient-to-br from-primary/10 to-forest/10 flex items-center justify-center">
                             <svg class="w-16 h-16 text-primary/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>

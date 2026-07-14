@@ -6,11 +6,14 @@
 @section('content')
 <!-- Hero -->
 <section class="relative py-32 overflow-hidden">
+    @php
+        $hero = $sections->get('hero');
+    @endphp
     <div class="absolute inset-0 bg-gradient-to-br from-forest/90 via-forest/80 to-primary/70 z-10"></div>
     <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('images/homepage-hero-africoco-event.jpg') }}')"></div>
     <div class="relative z-20 max-w-container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="font-heading font-bold text-4xl md:text-5xl text-white mb-6">Volunteer With Us</h1>
-        <p class="text-lg text-cream/90 max-w-2xl mx-auto">Be part of the change. Your skills and passion can help preserve Africa's coconut heritage.</p>
+        <h1 class="font-heading font-bold text-4xl md:text-5xl text-white mb-6">{{ $hero?->title ?? 'Volunteer With Us' }}</h1>
+        <p class="text-lg text-cream/90 max-w-2xl mx-auto">{{ $hero?->body ?? "Be part of the change. Your skills and passion can help preserve Africa's coconut heritage." }}</p>
     </div>
 </section>
 

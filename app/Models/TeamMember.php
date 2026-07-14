@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasPublicImageUrls;
 use Illuminate\Database\Eloquent\Model;
 
 class TeamMember extends Model
 {
+    use HasPublicImageUrls;
+
     protected $fillable = [
         'full_name',
         'position',
@@ -34,5 +37,10 @@ class TeamMember extends Model
     public function scopeOrdered($query)
     {
         return $query->orderBy('display_order');
+    }
+
+    public function getPhotoUrlAttribute(): ?string
+    {
+        return $this->publicImageUrl($this->photo);
     }
 }

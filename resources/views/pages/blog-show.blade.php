@@ -2,8 +2,8 @@
 
 @section('title', $blogPost->title)
 @section('meta_description', $blogPost->seo_description ?? strip_tags($blogPost->excerpt))
-@if($blogPost->featured_image)
-@section('og_image', $blogPost->featured_image)
+@if($blogPost->featured_image_url)
+@section('og_image', $blogPost->featured_image_url)
 @endif
 
 @section('content')
@@ -55,7 +55,7 @@
                         <div class="space-y-4">
                             @foreach($related as $relatedPost)
                             <a href="{{ route('blog.show', $relatedPost) }}" class="flex items-start space-x-3 group">
-                                <img src="{{ $relatedPost->featured_image ?? 'https://images.unsplash.com/photo-1504711434969-e33886168d8c?w=100' }}" alt="" class="w-16 h-16 rounded-image object-cover flex-shrink-0">
+                                <img src="{{ $relatedPost->featured_image_url ?? asset('images/homepage-hero-africoco-event.jpg') }}" alt="" class="w-16 h-16 rounded-image object-cover flex-shrink-0">
                                 <div>
                                     <h4 class="text-sm font-semibold text-charcoal group-hover:text-primary transition-colors leading-snug">{{ $relatedPost->title }}</h4>
                                     <span class="text-xs text-slate">{{ $relatedPost->published_at?->format('M d, Y') }}</span>

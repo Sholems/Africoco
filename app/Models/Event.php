@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasPublicImageUrls;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
+    use HasPublicImageUrls;
+
     protected $fillable = [
         'title',
         'slug',
@@ -39,5 +42,10 @@ class Event extends Model
     public function scopeUpcoming($query)
     {
         return $query->where('status', 'upcoming')->orWhere('status', 'ongoing');
+    }
+
+    public function getBannerUrlAttribute(): ?string
+    {
+        return $this->publicImageUrl($this->banner);
     }
 }

@@ -13,11 +13,14 @@
 @section('content')
 <!-- Hero -->
 <section class="relative py-32 overflow-hidden">
+    @php
+        $hero = $sections->get('hero');
+    @endphp
     <div class="absolute inset-0 bg-gradient-to-br from-forest/90 via-forest/80 to-primary/70 z-10"></div>
     <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('images/homepage-hero-africoco-event.jpg') }}')"></div>
     <div class="relative z-20 max-w-container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="font-heading font-bold text-4xl md:text-5xl text-white mb-6">Our Gallery</h1>
-        <p class="text-lg text-cream/90 max-w-2xl mx-auto">Moments that capture the spirit of AFRICOCO's mission across Africa.</p>
+        <h1 class="font-heading font-bold text-4xl md:text-5xl text-white mb-6">{{ $hero?->title ?? 'Our Gallery' }}</h1>
+        <p class="text-lg text-cream/90 max-w-2xl mx-auto">{{ $hero?->body ?? "Moments that capture the spirit of AFRICOCO's mission across Africa." }}</p>
     </div>
 </section>
 
@@ -46,7 +49,7 @@
                  x-transition:enter="transition ease-out duration-300"
                  x-transition:enter-start="opacity-0 scale-90"
                  x-transition:enter-end="opacity-100 scale-100">
-                <img src="{{ $item->image }}" alt="{{ $item->title }}" class="w-full h-64 object-cover transition-transform duration-500">
+                <img src="{{ $item->image_url ?? asset('images/homepage-hero-africoco-event.jpg') }}" alt="{{ $item->title }}" class="w-full h-64 object-cover transition-transform duration-500">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-5">
                     <h3 class="text-white font-heading font-semibold text-lg">{{ $item->title }}</h3>
                     @if($item->category)

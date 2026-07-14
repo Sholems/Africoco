@@ -111,9 +111,9 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             @foreach($featuredProjects as $project)
             <div class="group bg-white rounded-card overflow-hidden shadow-card hover:shadow-lg transition-all border border-gray-100 flex flex-col md:flex-row">
-                @if($project->featured_image)
+                @if($project->featured_image_url)
                 <div class="md:w-2/5 overflow-hidden">
-                    <img src="{{ $project->featured_image }}" alt="{{ $project->title }}" class="w-full h-full object-cover min-h-[200px] group-hover:scale-110 transition-transform duration-500">
+                    <img src="{{ $project->featured_image_url }}" alt="{{ $project->title }}" class="w-full h-full object-cover min-h-[200px] group-hover:scale-110 transition-transform duration-500">
                 </div>
                 @endif
                 <div class="p-6 md:w-3/5">
@@ -241,9 +241,9 @@
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-center">
             @foreach($partners as $partner)
             <div class="bg-cream rounded-card p-4 shadow-sm hover:shadow-md transition-all text-center border border-gray-100">
-                @if($partner->logo)
+                @if($partner->logo_url)
                 <div class="h-14 flex items-center justify-center">
-                    <img src="{{ $partner->logo }}" alt="{{ $partner->organization_name }}" class="max-h-full grayscale hover:grayscale-0 transition-all">
+                    <img src="{{ $partner->logo_url }}" alt="{{ $partner->organization_name }}" class="max-h-full grayscale hover:grayscale-0 transition-all">
                 </div>
                 @else
                 <div class="h-14 flex items-center justify-center">

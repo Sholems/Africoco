@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasPublicImageUrls;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 
 class Media extends Model
 {
+    use HasPublicImageUrls;
+
     protected $fillable = [
         'filename',
         'original_name',
@@ -36,7 +38,7 @@ class Media extends Model
      */
     public function getUrlAttribute(): string
     {
-        return Storage::disk($this->disk)->url($this->filename);
+        return $this->publicImageUrl($this->filename) ?? '';
     }
 
     /**

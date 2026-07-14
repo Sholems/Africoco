@@ -25,9 +25,9 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($events as $event)
             <div class="group bg-white rounded-card overflow-hidden shadow-card hover:shadow-lg transition-all">
-                @if($event->banner)
+                @if($event->banner_url)
                 <div class="overflow-hidden">
-                    <img src="{{ $event->banner }}" alt="{{ $event->title }}" class="w-full h-52 object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="{{ $event->banner_url }}" alt="{{ $event->title }}" class="w-full h-52 object-cover group-hover:scale-110 transition-transform duration-500">
                 </div>
                 @else
                 <div class="w-full h-52 bg-gradient-to-br from-primary/10 to-forest/10 flex items-center justify-center">

@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasPublicImageUrls;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Project extends Model
 {
+    use HasPublicImageUrls;
+
     protected $fillable = [
         'title',
         'slug',
@@ -65,5 +68,19 @@ class Project extends Model
     public function getExcerptAttribute($length = 150): string
     {
         return Str::limit(strip_tags($this->description ?? ''), $length);
+    }
+
+    public function getFeaturedImageUrlAttribute(): ?string
+    {
+        return $this->publicImageUrl($this->featured_image);
+    }
+
+    public function getGalleryImageUrlsAttribute(): array
+    {
+        return collect($this->gallery ?? [])
+            ->map(fn ($path) => $this->publicImageUrl($path))
+            ->filter()
+            ->values()
+            ->all();
     }
 }

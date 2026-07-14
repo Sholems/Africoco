@@ -339,9 +339,9 @@
             @foreach($team as $index => $member)
             <div class="group bg-white rounded-card overflow-hidden shadow-card hover:shadow-xl transition-all duration-500 border border-gray-100 hover:-translate-y-1"
                  x-show="visible" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 translate-y-8" style="transition-delay: {{ $index * 100 }}ms">
-                @if($member->photo)
+                @if($member->photo_url)
                 <div class="overflow-hidden">
-                    <img src="{{ $member->photo }}" alt="{{ $member->name }}" class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700">
+                    <img src="{{ $member->photo_url }}" alt="{{ $member->full_name }}" class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700">
                 </div>
                 @else
                 <div class="w-full h-60 bg-gradient-to-br from-primary/10 to-forest/10 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">

@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasPublicImageUrls;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class BlogPost extends Model
 {
+    use HasPublicImageUrls;
+
     protected $fillable = [
         'blog_category_id',
         'title',
@@ -46,5 +49,10 @@ class BlogPost extends Model
     public function getExcerptAttribute($value)
     {
         return $value ?? Str::limit(strip_tags($this->body), 150);
+    }
+
+    public function getFeaturedImageUrlAttribute(): ?string
+    {
+        return $this->publicImageUrl($this->featured_image);
     }
 }
