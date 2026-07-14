@@ -2,9 +2,40 @@
 
 @section('title', $blogPost->title)
 @section('meta_description', $blogPost->seo_description ?? strip_tags($blogPost->excerpt))
+@section('og_type', 'article')
 @if($blogPost->featured_image_url)
 @section('og_image', $blogPost->featured_image_url)
 @endif
+
+@push('schema')
+<script type="application/ld+json">
+    {!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'Article',
+        'headline' => $blogPost->seo_title ?? $blogPost->title,
+        'description' => $blogPost->seo_description ?? strip_tags($blogPost->excerpt),
+        'image' => [$blogPost->featured_image_url ?? asset('images/homepage-hero-africoco-event.jpg')],
+        'datePublished' => $blogPost->published_at?->toAtomString(),
+        'dateModified' => $blogPost->updated_at?->toAtomString(),
+        'author' => [
+            '@type' => 'Person',
+            'name' => $blogPost->author ?: 'AFRICOCO',
+        ],
+        'publisher' => [
+            '@type' => 'Organization',
+            'name' => 'AFRICOCO',
+            'logo' => [
+                '@type' => 'ImageObject',
+                'url' => asset('africoco-logo.png'),
+            ],
+        ],
+        'mainEntityOfPage' => [
+            '@type' => 'WebPage',
+            '@id' => route('blog.show', $blogPost),
+        ],
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
+</script>
+@endpush
 
 @section('content')
 <!-- Blog Post Header -->

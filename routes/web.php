@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SeoController;
 use App\Http\Controllers\VolunteerController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,7 @@ Route::get('/projects', [PageController::class, 'projects'])->name('projects');
 Route::get('/strategic-pillars', [PageController::class, 'strategicPillars'])->name('strategic-pillars');
 Route::get('/impact', [PageController::class, 'impact'])->name('impact');
 Route::get('/corporate-partnerships', [PageController::class, 'corporatePartnerships'])->name('corporate-partnerships');
+Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('sitemap');
 // Donations are intentionally hidden until payment processing is ready for launch.
 Route::redirect('/donate', '/corporate-partnerships')->name('donate');
 

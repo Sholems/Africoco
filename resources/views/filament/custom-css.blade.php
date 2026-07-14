@@ -1,11 +1,20 @@
 <style>
     /* === Deep Green Sidebar === */
     .fi-sidebar {
-        background: linear-gradient(180deg, #064e3b 0%, #047857 100%) !important;
+        background: linear-gradient(180deg, #022c22 0%, #064e3b 58%, #065f46 100%) !important;
+        border-right: 1px solid rgba(167, 243, 208, 0.16) !important;
+    }
+    .fi-sidebar-nav {
+        min-height: calc(100vh - 5rem) !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    .fi-sidebar-nav-groups {
+        flex: 1 1 auto !important;
     }
     .fi-sidebar-header {
         background: transparent !important;
-        border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+        border-bottom: 1px solid rgba(167,243,208,0.16) !important;
     }
     .fi-sidebar-item-label,
     .fi-sidebar-item a,
@@ -118,5 +127,49 @@
         background: linear-gradient(135deg, #064e3b 0%, #047857 50%, #059669 100%) !important;
         border-radius: 16px !important;
         border: none !important;
+    }
+
+    /* === Sidebar Footer Logout === */
+    .af-sidebar-footer {
+        margin: auto 0.75rem 0.75rem;
+        padding: 0.875rem;
+        border: 1px solid rgba(167, 243, 208, 0.18);
+        border-radius: 0.75rem;
+        background: rgba(2, 44, 34, 0.72);
+        box-shadow: 0 16px 35px rgba(0, 0, 0, 0.18);
+    }
+    .af-sidebar-footer__user {
+        margin-bottom: 0.75rem;
+        min-width: 0;
+    }
+    .af-sidebar-footer__name,
+    .af-sidebar-footer__email {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .af-sidebar-footer__name {
+        color: #ecfdf5;
+        font-size: 0.875rem;
+        font-weight: 700;
+    }
+    .af-sidebar-footer__email {
+        color: rgba(209, 250, 229, 0.68);
+        font-size: 0.75rem;
+    }
+    .af-sidebar-footer__logout {
+        width: 100%;
+        border-radius: 0.625rem;
+        background: rgba(236, 253, 245, 0.1);
+        color: #ecfdf5;
+        font-size: 0.875rem;
+        font-weight: 700;
+        padding: 0.625rem 0.875rem;
+        transition: background 0.2s ease, color 0.2s ease;
+    }
+    .af-sidebar-footer__logout:hover {
+        background: #84cc16;
+        color: #022c22;
     }
 </style>

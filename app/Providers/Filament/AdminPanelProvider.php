@@ -29,6 +29,11 @@ class AdminPanelProvider extends PanelProvider
             'panels::styles.after',
             fn (): string => view('filament.custom-css')->render()
         );
+
+        FilamentView::registerRenderHook(
+            'panels::sidebar.footer',
+            fn (): string => view('filament.sidebar-footer')->render()
+        );
     }
 
     public function panel(Panel $panel): Panel

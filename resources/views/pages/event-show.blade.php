@@ -2,6 +2,50 @@
 
 @section('title', $event->title)
 @section('meta_description', Str::limit($event->description, 160))
+@section('og_type', 'event')
+@if($event->banner_url)
+@section('og_image', $event->banner_url)
+@endif
+
+@push('schema')
+<script type="application/ld+json">
+    {!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'Event',
+        'name' => $event->title,
+        'description' => Str::limit(strip_tags($event->description), 250),
+        'image' => [$event->banner_url ?? asset('images/homepage-hero-africoco-event.jpg')],
+        'startDate' => $event->start_time?->toAtomString() ?? $event->start_date?->toDateString(),
+        'endDate' => $event->end_date?->toDateString(),
+        'eventStatus' => $event->status === 'cancelled' ? 'https://schema.org/EventCancelled' : 'https://schema.org/EventScheduled',
+        'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
+        'location' => [
+            '@type' => 'Place',
+            'name' => $event->venue ?: 'Badagry, Lagos State, Nigeria',
+            'address' => [
+                '@type' => 'PostalAddress',
+                'addressLocality' => 'Badagry',
+                'addressRegion' => 'Lagos State',
+                'addressCountry' => 'NG',
+            ],
+        ],
+        'organizer' => [
+            '@type' => 'Organization',
+            'name' => 'AFRICOCO',
+            'url' => url('/'),
+        ],
+        'url' => route('events.show', $event),
+        'offers' => [
+            '@type' => 'Offer',
+            'url' => route('events.show', $event),
+            'price' => (float) ($event->registration_fee ?? 0),
+            'priceCurrency' => 'NGN',
+            'availability' => 'https://schema.org/InStock',
+            'validFrom' => $event->created_at?->toAtomString(),
+        ],
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
+</script>
+@endpush
 
 @section('content')
 <!-- Event Header -->

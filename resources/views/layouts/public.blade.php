@@ -1,18 +1,37 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    @php
+        $defaultTitle = 'AFRICOCO - African Coconut Heritage Initiative';
+        $defaultDescription = "AFRICOCO preserves Africa's coconut heritage while growing opportunities through sustainability, agriculture, heritage tourism, education, partnerships, and community empowerment.";
+        $defaultImage = asset('images/homepage-hero-africoco-event.jpg');
+        $pageTitle = trim($__env->yieldContent('title', $defaultTitle));
+        $metaDescription = trim($__env->yieldContent('meta_description', $defaultDescription));
+        $canonicalUrl = trim($__env->yieldContent('canonical', url()->current()));
+        $ogImage = trim($__env->yieldContent('og_image', $defaultImage));
+        $siteName = 'AFRICOCO';
+    @endphp
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="@yield('meta_description', 'AFRICOCO - African Coconut Heritage Initiative. Preserving Africa\'s Coconut Heritage. Growing Opportunities for Generations.')">
-    <meta name="keywords" content="AFRICOCO, coconut, Africa, heritage, sustainability, agriculture, agro-tourism, Badagry">
-    <meta property="og:title" content="@yield('title', config('app.name'))">
-    <meta property="og:description" content="@yield('meta_description', 'Preserving Africa\'s Coconut Heritage. Growing Opportunities for Generations.')">
-    <meta property="og:image" content="@yield('og_image', asset('images/og-default.jpg'))">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="description" content="{{ $metaDescription }}">
+    <meta name="keywords" content="@yield('meta_keywords', 'AFRICOCO, African Coconut Heritage Initiative, coconut industry Africa, coconut farming Nigeria, sustainable agriculture, coconut heritage, agro-tourism, Badagry, Lagos coconut development')">
+    <meta name="robots" content="@yield('robots', 'index, follow, max-image-preview:large')">
+    <link rel="canonical" href="{{ $canonicalUrl }}">
 
-    <title>@yield('title', config('app.name')) | AFRICOCO</title>
+    <meta property="og:title" content="{{ $pageTitle }} | {{ $siteName }}">
+    <meta property="og:description" content="{{ $metaDescription }}">
+    <meta property="og:image" content="{{ $ogImage }}">
+    <meta property="og:image:alt" content="@yield('og_image_alt', 'AFRICOCO African Coconut Heritage Initiative')">
+    <meta property="og:type" content="@yield('og_type', 'website')">
+    <meta property="og:url" content="{{ $canonicalUrl }}">
+    <meta property="og:site_name" content="{{ $siteName }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $pageTitle }} | {{ $siteName }}">
+    <meta name="twitter:description" content="{{ $metaDescription }}">
+    <meta name="twitter:image" content="{{ $ogImage }}">
+
+    <title>{{ $pageTitle }} | {{ $siteName }}</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('africoco-logo.png') }}">
@@ -25,6 +44,67 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
+
+    <script type="application/ld+json">
+        {!! json_encode([
+            '@context' => 'https://schema.org',
+            '@graph' => [
+                [
+                    '@type' => 'Organization',
+                    '@id' => url('/#organization'),
+                    'name' => 'AFRICOCO',
+                    'alternateName' => 'African Coconut Heritage Initiative',
+                    'url' => url('/'),
+                    'logo' => asset('africoco-logo.png'),
+                    'image' => $defaultImage,
+                    'description' => $defaultDescription,
+                    'email' => 'info@africoco.ng',
+                    'telephone' => '+2348033669496',
+                    'address' => [
+                        '@type' => 'PostalAddress',
+                        'addressLocality' => 'Badagry',
+                        'addressRegion' => 'Lagos State',
+                        'addressCountry' => 'NG',
+                    ],
+                    'sameAs' => [
+                        'https://www.facebook.com/AfricocoNg',
+                        'https://www.youtube.com/@africoco_ng',
+                        'https://www.instagram.com/africocong/',
+                        'https://x.com/africocoNg',
+                    ],
+                ],
+                [
+                    '@type' => 'WebSite',
+                    '@id' => url('/#website'),
+                    'url' => url('/'),
+                    'name' => 'AFRICOCO',
+                    'publisher' => [
+                        '@id' => url('/#organization'),
+                    ],
+                    'inLanguage' => 'en-NG',
+                ],
+                [
+                    '@type' => 'WebPage',
+                    '@id' => $canonicalUrl . '#webpage',
+                    'url' => $canonicalUrl,
+                    'name' => $pageTitle,
+                    'description' => $metaDescription,
+                    'isPartOf' => [
+                        '@id' => url('/#website'),
+                    ],
+                    'about' => [
+                        '@id' => url('/#organization'),
+                    ],
+                    'primaryImageOfPage' => [
+                        '@type' => 'ImageObject',
+                        'url' => $ogImage,
+                    ],
+                    'inLanguage' => 'en-NG',
+                ],
+            ],
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
+    </script>
+    @stack('schema')
 </head>
 <body class="font-sans text-charcoal bg-cream antialiased">
     <!-- Navigation -->
