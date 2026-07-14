@@ -4,7 +4,7 @@
     @php
         $defaultTitle = 'AFRICOCO - African Coconut Heritage Initiative';
         $defaultDescription = "AFRICOCO preserves Africa's coconut heritage while growing opportunities through sustainability, agriculture, heritage tourism, education, partnerships, and community empowerment.";
-        $defaultImage = asset('images/homepage-hero-africoco-event.jpg');
+        $defaultImage = asset('africoco-logo.png');
         $pageTitle = trim($__env->yieldContent('title', $defaultTitle));
         $metaDescription = trim($__env->yieldContent('meta_description', $defaultDescription));
         $canonicalUrl = trim($__env->yieldContent('canonical', url()->current()));

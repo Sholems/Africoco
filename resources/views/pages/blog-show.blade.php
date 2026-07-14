@@ -3,9 +3,7 @@
 @section('title', $blogPost->title)
 @section('meta_description', $blogPost->seo_description ?? strip_tags($blogPost->excerpt))
 @section('og_type', 'article')
-@if($blogPost->featured_image_url)
-@section('og_image', $blogPost->featured_image_url)
-@endif
+@section('og_image', asset('africoco-logo.png'))
 
 @push('schema')
 <script type="application/ld+json">
@@ -60,14 +58,45 @@
 </section>
 
 <!-- Blog Content -->
-<section class="py-8 md:py-12 lg:py-16">
+<section class="py-8 md:py-12 lg:py-16 bg-cream/40">
     <div class="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        @php
+            $imageCredits = [
+                '/images/blog/nigeria-coconut-tree-fruit.jpg' => 'Photo: Biggiepopa via Wikimedia Commons, CC BY-SA 4.0.',
+                '/images/blog/coconuts-drying-copra-processing.jpg' => 'Photo: Peter Davis / AusAID via Wikimedia Commons.',
+                '/images/blog/coconut-oil-mill-processing.jpg' => 'Photo: Amolnaik3k via Wikimedia Commons, public domain.',
+            ];
+            $imageCredit = $imageCredits[$blogPost->featured_image] ?? null;
+        @endphp
+        @if($blogPost->featured_image_url)
+        <figure class="mb-10 overflow-hidden rounded-card bg-white shadow-card">
+            <img src="{{ $blogPost->featured_image_url }}" alt="{{ $blogPost->title }}" class="h-[260px] w-full object-cover md:h-[420px]">
+            <figcaption class="border-t border-gray-100 px-5 py-3 text-sm text-slate">
+                AFRICOCO insight: {{ $blogPost->category?->name ?? 'Coconut heritage and sustainability' }}
+                @if($imageCredit)
+                    <span class="block text-xs text-slate/75">{{ $imageCredit }}</span>
+                @endif
+            </figcaption>
+        </figure>
+        @endif
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
             <!-- Main Content -->
             <div class="lg:col-span-2">
-                <div class="prose prose-lg max-w-none text-slate leading-relaxed">
+                <article class="bg-white rounded-card shadow-card px-5 py-7 md:px-10 md:py-10">
+                    <div class="mb-8 flex flex-wrap items-center gap-3 text-sm text-slate">
+                        @if($blogPost->category)
+                        <span class="inline-flex rounded-full bg-primary/10 px-3 py-1 font-semibold text-primary">{{ $blogPost->category->name }}</span>
+                        @endif
+                        @if($blogPost->published_at)
+                        <span>{{ $blogPost->published_at->format('F d, Y') }}</span>
+                        @endif
+                        <span>{{ max(1, ceil(str_word_count(strip_tags($blogPost->body)) / 200)) }} min read</span>
+                    </div>
+                    <div class="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-charcoal prose-p:text-slate prose-p:leading-8 prose-a:text-primary prose-strong:text-charcoal">
                     {!! $blogPost->body !!}
-                </div>
+                    </div>
+                </article>
             </div>
 
             <!-- Sidebar -->
