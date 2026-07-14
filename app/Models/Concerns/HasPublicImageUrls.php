@@ -17,7 +17,7 @@ trait HasPublicImageUrls
         }
 
         if (Str::startsWith($path, '/')) {
-            return $path;
+            return url($path);
         }
 
         if (Str::startsWith($path, 'storage/')) {

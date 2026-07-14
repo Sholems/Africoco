@@ -138,6 +138,9 @@
         background: rgba(2, 44, 34, 0.72);
         box-shadow: 0 16px 35px rgba(0, 0, 0, 0.18);
     }
+    .fi-sidebar-nav > .af-sidebar-footer {
+        margin-top: auto !important;
+    }
     .af-sidebar-footer__user {
         margin-bottom: 0.75rem;
         min-width: 0;

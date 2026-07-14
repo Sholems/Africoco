@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
             PillarSeeder::class,
             ProgramSeeder::class,
             PageSectionSeeder::class,
+            BlogPostSeeder::class,
         ]);
     }
 }
