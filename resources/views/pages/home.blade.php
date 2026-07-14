@@ -134,7 +134,7 @@
             </div>
             <div class="relative">
                 <div class="rounded-card overflow-hidden shadow-card">
-                    <img src="{{ $about && $about->image ? Storage::url($about->image) : 'https://images.unsplash.com/photo-1590779033100-9f8a9b3a2b1a?w=600' }}" alt="Coconut plantation" class="w-full h-96 object-cover">
+                    <img src="{{ $about && $about->image ? Storage::url($about->image) : asset('images/homepage-hero-africoco-event.jpg') }}" alt="Coconut plantation" class="w-full h-96 object-cover">
                 </div>
                 <div class="absolute -bottom-6 -left-6 bg-white rounded-card p-6 shadow-card hidden md:block">
                     <div class="text-3xl font-heading font-bold text-primary">{{ $stats[0]['value'] }}</div>
@@ -382,7 +382,7 @@
             </div>
             <div class="relative">
                 <div class="rounded-card overflow-hidden shadow-hero">
-                    <img src="{{ $agunkefest && $agunkefest->image ? Storage::url($agunkefest->image) : 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600' }}" alt="Festival celebration" class="w-full h-96 object-cover">
+                    <img src="{{ $agunkefest && $agunkefest->image ? Storage::url($agunkefest->image) : asset('images/homepage-hero-africoco-event.jpg') }}" alt="Festival celebration" class="w-full h-96 object-cover">
                 </div>
             </div>
         </div>
@@ -549,7 +549,7 @@
             @foreach($posts as $post)
             <article class="bg-white rounded-card overflow-hidden shadow-card hover:shadow-lg transition-all group">
                 <div class="overflow-hidden">
-                    <img src="{{ $post->featured_image ?? 'https://images.unsplash.com/photo-1559314809-0d155014e29e?w=400' }}" alt="{{ $post->title }}" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="{{ $post->featured_image ?? asset('images/homepage-hero-africoco-event.jpg') }}" alt="{{ $post->title }}" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
                 </div>
                 <div class="p-6">
                     @if($post->category)
@@ -591,7 +591,7 @@
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             @foreach($gallery as $item)
             <div class="group relative rounded-card overflow-hidden shadow-card {{ $loop->first ? 'col-span-2 row-span-2' : '' }}">
-                <img src="{{ $item->image ?? 'https://images.unsplash.com/photo-1559314809-0d155014e29e?w=400' }}" alt="{{ $item->title }}" class="w-full h-48 md:h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                <img src="{{ $item->image ?? asset('images/homepage-hero-africoco-event.jpg') }}" alt="{{ $item->title }}" class="w-full h-48 md:h-64 object-cover group-hover:scale-110 transition-transform duration-500">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                     <span class="text-white text-sm font-medium">{{ $item->title }}</span>
                 </div>
